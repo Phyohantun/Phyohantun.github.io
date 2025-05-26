@@ -659,4 +659,167 @@ body {
     .nav-links.show {
         background: var(--bg-light);
     }
+}
+
+/* Add these animation keyframes at the top of the file */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Animation classes */
+.animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fadeInRight {
+    animation: fadeInRight 0.6s ease-out forwards;
+}
+
+.animate-scaleIn {
+    animation: scaleIn 0.5s ease-out forwards;
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Add animation delays */
+.delay-1 {
+    animation-delay: 0.2s;
+}
+
+.delay-2 {
+    animation-delay: 0.4s;
+}
+
+.delay-3 {
+    animation-delay: 0.6s;
+}
+
+/* Apply animations to specific elements */
+.hero-content h1 {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.hero-content p {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.2s forwards;
+}
+
+.hero-buttons {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+}
+
+.hero-image {
+    opacity: 0;
+    animation: scaleIn 1s ease-out 0.6s forwards;
+}
+
+.hero-logo {
+    animation: float 3s ease-in-out infinite;
+}
+
+.feature-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease-out;
+}
+
+.feature-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feature-icon {
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Add hover effects */
+.nav-links a {
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.cta-button {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.download-button {
+    transition: transform 0.3s ease;
+}
+
+.download-button:hover {
+    transform: scale(1.05);
 } 

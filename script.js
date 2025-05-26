@@ -1,4 +1,28 @@
-// Smooth scrolling for navigation links
+// Intersection Observer for scroll animations
+const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+// Observe all feature cards
+document.addEventListener('DOMContentLoaded', () => {
+    const featureCards = document.querySelectorAll('.feature-card');
+    featureCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.2}s`;
+        observer.observe(card);
+    });
+});
+
+// Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
