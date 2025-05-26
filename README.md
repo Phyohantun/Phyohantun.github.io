@@ -1,6 +1,6 @@
-# ScanSave Website
+# SaveScan Website
 
-This is the official website for ScanSave, an advanced Android text scanning application with intelligent image orientation correction and high-quality text recognition capabilities.
+This is the official website for SaveScan, an advanced Android text scanning application with intelligent image orientation correction and high-quality text recognition capabilities.
 
 ## Features
 
@@ -67,7 +67,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Contact
 
-For any inquiries about the website or the ScanSave app, please contact us at:
-- Email: contact@scansave.com
-- Twitter: @ScanSaveApp
-- GitHub: github.com/scansave 
+For any inquiries about the website or the SaveScan app, please contact us at:
+- Email: contact@savescan.org
+- Twitter: @SaveScanApp
+- GitHub: github.com/savescan 
