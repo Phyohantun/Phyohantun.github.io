@@ -35,21 +35,70 @@
     ExpiresByType application/x-shockwave-flash "access plus 1 month"
 </IfModule>
 
-# Set security headers
+# Set comprehensive security headers
 <IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-XSS-Protection "1; mode=block"
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    # HSTS (HTTP Strict Transport Security)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
     
-    # Allow caching while maintaining privacy
-    Header set Cache-Control "public, max-age=31536000"
+    # Content Security Policy
+    Header set Content-Security-Policy "default-src 'self'; \
+        script-src 'self' https://cdnjs.cloudflare.com; \
+        style-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; \
+        img-src 'self' data: https:; \
+        font-src 'self' https://cdnjs.cloudflare.com; \
+        connect-src 'self'; \
+        media-src 'self'; \
+        object-src 'none'; \
+        frame-src 'none'; \
+        base-uri 'self'; \
+        form-action 'self'; \
+        frame-ancestors 'self'; \
+        upgrade-insecure-requests"
+
+    # Prevent MIME-type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # Protection against clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # XSS Protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # Permissions Policy (formerly Feature-Policy)
+    Header always set Permissions-Policy "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=(), interest-cohort=()"
+    
+    # Cross-Origin Resource Policy
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+    
+    # Cross-Origin Opener Policy
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    
+    # Cross-Origin Embedder Policy
+    Header always set Cross-Origin-Embedder-Policy "require-corp"
+    
+    # Remove Server header
+    Header unset Server
+    
+    # Restrict CORS
+    Header always set Access-Control-Allow-Origin "https://savescan.org"
+    Header always set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Origin, Content-Type, Accept"
+    
+    # Cache Control
+    Header merge Cache-Control "no-transform"
+    Header merge Cache-Control "public, max-age=31536000"
 </IfModule>
 
 # Prevent directory listing
 Options -Indexes
 
-# Redirect to HTTPS
+# Force HTTPS
 RewriteEngine On
 RewriteCond %{HTTPS} off
-RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Remove Server Signature
+ServerSignature Off 
